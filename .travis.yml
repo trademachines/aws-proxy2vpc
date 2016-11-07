@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+- '4.3'
+after_success:
+- npm run coveralls
+before_deploy:
+- npm prune --production
+deploy:
+  provider: lambda
+  function_name: proxy2vpc
+  description: Proxies http requests to VPC internal resources
+  module_name: index
+  handler_name: handle
+  role: arn:aws:iam::608300940987:role/lambda-proxy2vpc
+  runtime: nodejs4.3
+  memory_size: 128
+  timeout: 120
+  region: eu-west-1
+  access_key_id:
+    secure: gZqPdOEhjNJuCnLvKziWA0PbU2QGD742DgTehOGYZqTOb9rkA+Qvehi4haHiTIp+Rm+Paqi7dEeWFjnDIYZYKU/ve2qhW/pp0WH04Y83PwZuQegZ1tARrPACgC/QRe+3sGg6nuLTkIqYUPGDdQkdu32DzxFkeBf5bLmNDnxQvZ1HOuPbUM/wZp4BrUCbLkqaOhXKo5ESsk1KftzN0zgE55shRDcJAbZfZL3/6t8GQe2MLv/9LADAEQRvI/KiuOtOu5Qmi6nzZD5GQEMDF+uFoJZkvRlhS7kKv3kL51Nfz+qOCchCMzSRiyylMG2qrcTjeWZHh29XrEa1pYJyi2W0MUpDRfO1L0q1ezlqqRdFFtn6W7VwWggoLqUZxf4gHDJWvYN+im7Mjh2RltTCi8tFOJ08Q8yPC9QcLBEmM8eIsaS2wP+yTiyCHll4B//zEQkTfuFrvcaWPYhtGusnXv6xCDh0Yv1bLEAEUYd06s31uIDpfxQ2CF7rdupk9rlb3K+nASiupcOIAESaPgpq6bmEmXy7hnIUUYXL8NuXpwwPX8OTc0JYrcS9/3qFA2CelvntHUwpvI8xFPWuPQEnwGhiI8wAJhCeLFngFWowGMqG+Cv5RdQFrrJV3AVj5YhkWDDp9vAsyluVtEqByBc1UOgr/HMOMJAkOhFux8reHUkRDaw=
+  secret_access_key:
+    secure: FVoHbhRmTKivxuFZtQRLMgthWxoiZy2fkAv7qlKLpKO0rBs5Y2sk35AKs+3aZoLcKrWFmfxhmEVexFL8XVqfmjwuixi0uGzjs7JWPzvk+VExZvTgKjU3docyis02M5FTqnCyM3NrMaTVpyyDWiEBBRrEDqQ/9LLCqMIBfjN01J8/6ySWnCmEvSjJCzO5GT6PW2bmdWPG7mf+/9dkascRauQLMfuXIkrqu33PbId0hBMr9Nsglp4Kh6rXlCFi90qcTXFAFh3bqhj/TZLjmONh8v0idhsJWgob3b7F0ypUbpkfrDID1IPlbO9UbZC/3Hp0xD3+3+2bfKg9Qx70SD8tFfdIHMIJ4mx0vcBn/bcRuWoCpNV1bDPPAdw2HLb2J57HKpdjmZAhEZGtQfuVhZcENvuVR2atYDoIaCU6B5tKBzu8jNJL6H+7L5gPeiOmFOGHOWRl7BScCx2WIw19adGDuuMyHsTkqH+vHir/RUhNh/+Nq5av1qbR7o3Fv4wbDIMagZHgoMtoOBV9vmtlrIFEI+nCWEfZajEJUM5lBuRS6oEwoqqAqtcwcEeWO/Yd5A4xOZWpJLvVeuIQfwFa1ytmD4+FBgH3VZQiLfbgkP0n3lHhCxbLKhl8xOhUzv7/3/X4Vy54dlAUCUPD1ydtcy03hJmYZcyCf5DtmV2yBrYREoI=
+  on:
+    branch: master
